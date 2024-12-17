@@ -4,6 +4,7 @@ import * as toolsCache from '@actions/tool-cache'
 import * as fs from 'fs'
 import * as os from 'os'
 import path from 'path'
+import {execSync} from "node:child_process";
 
 import {
   findExecutablesRecursively,
@@ -186,6 +187,17 @@ async function run(platform: Platform): Promise<void> {
       core.info(`✅ Godot extracted to ${godotExtractedPath}`)
       core.endGroup()
 
+      try {
+        core.startGroup(`🔧 Making Godot files executable...`)
+        // Выполняем команду find + chmod через execSync
+        // Данная команда найдёт все файлы в папке installationDir с "godot" в названии и добавит им флаг исполняемости.
+        execSync(`find "${installationDir}" -type f -iname "*godot*" -exec chmod +x {} \\;`)
+        core.info(`✅ Godot files are now executable`)
+        core.endGroup()
+      } catch (error) {
+        core.warning(`⚠️ Failed to set executable permissions: ${error}`)
+      }
+      
       // Show extracted Godot files recursively and list executables.
       core.startGroup(`📄 Showing extracted files recursively...`)
       executables = await findExecutablesRecursively(
