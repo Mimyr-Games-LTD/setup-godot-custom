@@ -1,3 +1,21 @@
+# Fork
+It's fork of - https://github.com/chickensoft-games/setup-godot 
+
+With this fork u can download godot with spine or just with custom url. The fork is raw and dirty. I hope that i'll find a free time to improve this repo
+
+Usage example: 
+```
+      - name: Install Godot
+        id: install-godot
+        uses: Mimyr-Games-LTD/setup-godot-custom@v1.6
+        with:
+          use-dotnet: false
+          include-templates: false
+          version: 'custom-version'
+          custom-url: 'https://spine-godot.s3.eu-central-1.amazonaws.com/4.2/4.3-stable/godot-editor-linux.zip'
+          cache: false
+```
+
 # 🤖 Setup Godot
 
 [![Chickensoft Badge][chickensoft-badge]][chickensoft-website] [![Discord][discord-badge]][discord] [![Read the docs][read-the-docs-badge]][docs]
