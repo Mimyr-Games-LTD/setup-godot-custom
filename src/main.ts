@@ -238,7 +238,7 @@ async function run(platform: Platform): Promise<void> {
 
         // Show extracted Export Template files recursively
         core.startGroup(`📄 Showing extracted files recursively...`)
-        await findExecutablesRecursively(platform, exportTemplatePath, '')
+        executables = await findExecutablesRecursively(platform, exportTemplatePath, '')
         core.info(`✅ Files shown`)
         core.endGroup()
       }

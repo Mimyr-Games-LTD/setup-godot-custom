@@ -218,7 +218,7 @@ function run(platform) {
                     core.endGroup();
                     // Show extracted Export Template files recursively
                     core.startGroup(`📄 Showing extracted files recursively...`);
-                    yield (0, utils_1.findExecutablesRecursively)(platform, exportTemplatePath, '');
+                    executables = yield (0, utils_1.findExecutablesRecursively)(platform, exportTemplatePath, '');
                     core.info(`✅ Files shown`);
                     core.endGroup();
                 }
