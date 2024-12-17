@@ -58,6 +58,7 @@ const toolsCache = __importStar(__nccwpck_require__(7784));
 const fs = __importStar(__nccwpck_require__(7147));
 const os = __importStar(__nccwpck_require__(2037));
 const path_1 = __importDefault(__nccwpck_require__(1017));
+const node_child_process_1 = __nccwpck_require__(7718);
 const utils_1 = __nccwpck_require__(918);
 function run(platform) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -194,6 +195,17 @@ function run(platform) {
                 const godotExtractedPath = yield toolsCache.extractZip(godotDownloadedPath, installationDir);
                 core.info(`✅ Godot extracted to ${godotExtractedPath}`);
                 core.endGroup();
+                try {
+                    core.startGroup(`🔧 Making Godot files executable...`);
+                    // Выполняем команду find + chmod через execSync
+                    // Данная команда найдёт все файлы в папке installationDir с "godot" в названии и добавит им флаг исполняемости.
+                    (0, node_child_process_1.execSync)(`find "${installationDir}" -type f -iname "*godot*" -exec chmod +x {} \\;`);
+                    core.info(`✅ Godot files are now executable`);
+                    core.endGroup();
+                }
+                catch (error) {
+                    core.warning(`⚠️ Failed to set executable permissions: ${error}`);
+                }
                 // Show extracted Godot files recursively and list executables.
                 core.startGroup(`📄 Showing extracted files recursively...`);
                 executables = yield (0, utils_1.findExecutablesRecursively)(platform, installationDir, '');
@@ -82971,6 +82983,14 @@ module.exports = require("https");
 
 "use strict";
 module.exports = require("net");
+
+/***/ }),
+
+/***/ 7718:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("node:child_process");
 
 /***/ }),
 
