@@ -41,7 +41,7 @@ export class Linux implements Platform {
     return '_linux.x86_64'
   }
   isGodotExecutable(basename: string): boolean {
-    return basename.toLowerCase().endsWith('x86_64')
+    return basename.toLowerCase().includes('godot')
   }
   getUnzippedPath(
     installationDir: string,
