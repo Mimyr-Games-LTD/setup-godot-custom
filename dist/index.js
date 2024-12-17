@@ -190,7 +190,7 @@ function run(platform) {
                 core.startGroup(`📦 Extracting Godot to ${installationDir}...`);
                 // If the godot installation folder already exists, remove it before extracting the ZIP file. This will "uninstall" other installations (e.g. on version changes).
                 if (fs.existsSync(installationDir))
-                    fs.rmdirSync(installationDir, { recursive: true });
+                    fs.rmSync(installationDir, { recursive: true });
                 const godotExtractedPath = yield toolsCache.extractZip(godotDownloadedPath, installationDir);
                 core.info(`✅ Godot extracted to ${godotExtractedPath}`);
                 core.endGroup();
@@ -383,7 +383,7 @@ class Linux {
         return '_linux.x86_64';
     }
     isGodotExecutable(basename) {
-        return basename.toLowerCase().endsWith('x86_64');
+        return basename.toLowerCase().includes('godot');
     }
     getUnzippedPath(installationDir, versionName, useDotnet) {
         return path.join(installationDir, versionName);
